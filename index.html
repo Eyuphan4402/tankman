@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="fc:frame" content="vNext">
+    <meta name="base:app_id" content="">
+    <title>Tank Commander</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="menu-screen" class="screen">
+            <h1>TANK<br>COMMANDER</h1>
+            <p class="subtitle">Protect Your Base</p>
+            <button id="startBtn">START MISSION</button>
+            <div class="instructions">
+                <p>🎮 Drag to move tank</p>
+                <p>🎯 Auto-fire when stopped</p>
+                <p>🛡️ Defend your base</p>
+            </div>
+        </div>
+        
+        <div id="upgrade-screen" class="screen hidden">
+            <h2>WAVE COMPLETE!</h2>
+            <p class="xp-text">XP: <span id="xpDisplay">0</span></p>
+            <div class="upgrade-options">
+                <button class="upgrade-btn" data-upgrade="bulletSpeed">
+                    <span class="icon">🚀</span>
+                    <span class="name">Bullet Speed</span>
+                    <span class="desc">+25% faster</span>
+                </button>
+                <button class="upgrade-btn" data-upgrade="armor">
+                    <span class="icon">🛡️</span>
+                    <span class="name">Armor</span>
+                    <span class="desc">+1 HP</span>
+                </button>
+                <button class="upgrade-btn" data-upgrade="ricochet">
+                    <span class="icon">💫</span>
+                    <span class="name">Ricochet</span>
+                    <span class="desc">Bullets bounce</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="gameover-screen" class="screen hidden">
+            <h2>MISSION FAILED</h2>
+            <p>Waves Survived: <span id="finalWave">0</span></p>
+            <p>Total Score: <span id="finalScore">0</span></p>
+            <button id="restartBtn">TRY AGAIN</button>
+        </div>
+        
+        <div id="hud">
+            <div class="hud-left">
+                <span id="waveDisplay">Wave 1</span>
+            </div>
+            <div class="hud-center">
+                <div id="baseHealth">
+                    <span>BASE</span>
+                    <div class="health-bar">
+                        <div id="baseHealthFill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hud-right">
+                <span id="scoreDisplay">0</span>
+            </div>
+        </div>
+        
+        <div id="player-health">
+            <span>TANK</span>
+            <div class="health-bar">
+                <div id="playerHealthFill"></div>
+            </div>
+        </div>
+        
+        <div id="controls">
+            <button id="btnLeft">◀</button>
+            <button id="btnRight">▶</button>
+            <button id="btnUp">▲</button>
+            <button id="btnDown">▼</button>
+        </div>
+    </div>
+    
+    <script type="module" src="game.js"></script>
+</body>
+</html>
+
