@@ -3,52 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tank Commander - Icon Generator</title>
+    <title>BASE CITY - Icon Generator</title>
     <style>
         body {
             font-family: 'Courier New', monospace;
-            background: #0a0a0a;
-            color: #e2e8f0;
+            background: #000;
+            color: #FCE094;
             padding: 40px;
             text-align: center;
         }
-        h1 {
-            color: #4ade80;
-            margin-bottom: 30px;
-        }
+        h1 { color: #D82800; margin-bottom: 30px; }
         .canvas-container {
             display: inline-block;
             margin: 20px;
-            background: #1e293b;
+            background: #111;
             padding: 20px;
-            border-radius: 12px;
+            border: 2px solid #333;
         }
-        canvas {
-            display: block;
-            margin: 0 auto 15px;
-            border-radius: 8px;
-        }
-        .label {
-            color: #94a3b8;
-            margin-bottom: 10px;
-        }
+        canvas { display: block; margin: 0 auto 15px; }
+        .label { color: #888; margin-bottom: 10px; }
         a {
             display: inline-block;
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            color: #0a0a0a;
+            background: #D82800;
+            color: #FCE094;
             padding: 10px 20px;
             text-decoration: none;
-            border-radius: 6px;
             font-weight: bold;
             margin-top: 10px;
-        }
-        a:hover {
-            opacity: 0.9;
+            border: 2px solid #FCE094;
         }
     </style>
 </head>
 <body>
-    <h1>Tank Commander - Icon Generator</h1>
+    <h1>BASE CITY - Icon Generator</h1>
     
     <div class="canvas-container">
         <div class="label">Icon (200x200)</div>
@@ -63,156 +50,144 @@
     </div>
 
     <script>
+        const COLORS = {
+            BG: '#000000',
+            BRICK: '#B53120',
+            BRICK_DARK: '#6B1C10',
+            STEEL: '#ADADAD',
+            PLAYER: '#FCE094',
+            PLAYER_DARK: '#E4A672',
+            ENEMY: '#D82800',
+            ENEMY_DARK: '#881400'
+        };
+        
+        function drawTank(ctx, x, y, size, isPlayer, direction = 'up') {
+            ctx.save();
+            ctx.translate(x + size/2, y + size/2);
+            
+            let angle = 0;
+            if (direction === 'down') angle = Math.PI;
+            if (direction === 'left') angle = -Math.PI/2;
+            if (direction === 'right') angle = Math.PI/2;
+            ctx.rotate(angle);
+            
+            const half = size / 2;
+            
+            // Body
+            ctx.fillStyle = isPlayer ? COLORS.PLAYER : COLORS.ENEMY;
+            ctx.fillRect(-half + size*0.15, -half, size*0.7, size);
+            
+            // Tracks
+            ctx.fillStyle = isPlayer ? COLORS.PLAYER_DARK : COLORS.ENEMY_DARK;
+            ctx.fillRect(-half, -half, size*0.2, size);
+            ctx.fillRect(half - size*0.2, -half, size*0.2, size);
+            
+            // Turret
+            ctx.fillStyle = isPlayer ? COLORS.PLAYER : COLORS.ENEMY;
+            ctx.fillRect(-size*0.1, -half - size*0.25, size*0.2, size*0.35);
+            
+            ctx.restore();
+        }
+        
+        function drawBrick(ctx, x, y, size) {
+            ctx.fillStyle = COLORS.BRICK;
+            ctx.fillRect(x, y, size, size);
+            ctx.fillStyle = COLORS.BRICK_DARK;
+            const bs = size / 4;
+            for (let row = 0; row < 4; row++) {
+                const offset = (row % 2) * bs;
+                for (let col = 0; col < 4; col++) {
+                    ctx.fillRect(x + offset + col * bs * 2 - bs, y + row * bs, 1, bs);
+                    ctx.fillRect(x + col * bs, y + row * bs, bs, 1);
+                }
+            }
+        }
+
         // Draw Icon
         const iconCanvas = document.getElementById('iconCanvas');
         const iconCtx = iconCanvas.getContext('2d');
         
-        // Background
-        const iconGradient = iconCtx.createLinearGradient(0, 0, 0, 200);
-        iconGradient.addColorStop(0, '#1a1a2e');
-        iconGradient.addColorStop(1, '#0f3460');
-        iconCtx.fillStyle = iconGradient;
+        iconCtx.fillStyle = COLORS.BG;
         iconCtx.fillRect(0, 0, 200, 200);
         
-        // Grid
-        iconCtx.strokeStyle = 'rgba(74, 222, 128, 0.15)';
-        iconCtx.lineWidth = 1;
-        for (let i = 0; i < 200; i += 20) {
-            iconCtx.beginPath();
-            iconCtx.moveTo(i, 0);
-            iconCtx.lineTo(i, 200);
-            iconCtx.stroke();
-            iconCtx.beginPath();
-            iconCtx.moveTo(0, i);
-            iconCtx.lineTo(200, i);
-            iconCtx.stroke();
+        // Border bricks
+        for (let i = 0; i < 8; i++) {
+            drawBrick(iconCtx, i * 25, 0, 25);
+            drawBrick(iconCtx, i * 25, 175, 25);
+            if (i > 0 && i < 7) {
+                drawBrick(iconCtx, 0, i * 25, 25);
+                drawBrick(iconCtx, 175, i * 25, 25);
+            }
         }
         
-        // Tank body
-        iconCtx.fillStyle = '#4ade80';
-        iconCtx.fillRect(70, 80, 60, 70);
+        // Player tank
+        drawTank(iconCtx, 75, 70, 50, true, 'up');
         
-        // Tank tracks
-        iconCtx.fillStyle = '#166534';
-        iconCtx.fillRect(60, 80, 15, 70);
-        iconCtx.fillRect(125, 80, 15, 70);
+        // Title
+        iconCtx.fillStyle = COLORS.PLAYER;
+        iconCtx.font = 'bold 20px "Courier New"';
+        iconCtx.textAlign = 'center';
+        iconCtx.fillText('BASE', 100, 150);
+        iconCtx.fillStyle = COLORS.ENEMY;
+        iconCtx.fillText('CITY', 100, 170);
         
-        // Tank turret
-        iconCtx.fillStyle = '#22c55e';
-        iconCtx.fillRect(90, 50, 20, 50);
-        
-        // Muzzle flash
-        iconCtx.fillStyle = '#fbbf24';
-        iconCtx.beginPath();
-        iconCtx.arc(100, 40, 12, 0, Math.PI * 2);
-        iconCtx.fill();
-        
-        // Download link
         document.getElementById('iconDownload').href = iconCanvas.toDataURL('image/png');
-        
+
         // Draw Preview
         const previewCanvas = document.getElementById('previewCanvas');
         const previewCtx = previewCanvas.getContext('2d');
         
-        // Background
-        const previewGradient = previewCtx.createLinearGradient(0, 0, 0, 400);
-        previewGradient.addColorStop(0, '#1a1a2e');
-        previewGradient.addColorStop(0.5, '#16213e');
-        previewGradient.addColorStop(1, '#0f3460');
-        previewCtx.fillStyle = previewGradient;
+        previewCtx.fillStyle = COLORS.BG;
         previewCtx.fillRect(0, 0, 600, 400);
         
-        // Grid
-        previewCtx.strokeStyle = 'rgba(74, 222, 128, 0.1)';
-        previewCtx.lineWidth = 1;
-        for (let i = 0; i < 600; i += 30) {
-            previewCtx.beginPath();
-            previewCtx.moveTo(i, 0);
-            previewCtx.lineTo(i, 400);
-            previewCtx.stroke();
+        // Brick border
+        for (let i = 0; i < 20; i++) {
+            drawBrick(previewCtx, i * 30, 0, 30);
+            drawBrick(previewCtx, i * 30, 370, 30);
         }
-        for (let i = 0; i < 400; i += 30) {
-            previewCtx.beginPath();
-            previewCtx.moveTo(0, i);
-            previewCtx.lineTo(600, i);
-            previewCtx.stroke();
+        for (let i = 1; i < 12; i++) {
+            drawBrick(previewCtx, 0, i * 30, 30);
+            drawBrick(previewCtx, 570, i * 30, 30);
         }
         
-        // Base
-        previewCtx.fillStyle = '#1e3a5f';
-        previewCtx.fillRect(0, 350, 600, 50);
-        previewCtx.fillStyle = '#4ade80';
-        previewCtx.font = 'bold 16px Courier New';
-        previewCtx.textAlign = 'center';
-        previewCtx.fillText('BASE', 300, 380);
+        // Some bricks in middle
+        drawBrick(previewCtx, 120, 150, 30);
+        drawBrick(previewCtx, 150, 150, 30);
+        drawBrick(previewCtx, 120, 180, 30);
+        drawBrick(previewCtx, 400, 120, 30);
+        drawBrick(previewCtx, 430, 120, 30);
+        drawBrick(previewCtx, 400, 150, 30);
         
-        // Enemy tanks
-        function drawEnemyTank(x, y) {
-            previewCtx.fillStyle = '#dc2626';
-            previewCtx.fillRect(x - 17, y - 22, 35, 45);
-            previewCtx.fillStyle = '#991b1b';
-            previewCtx.fillRect(x - 5, y, 10, 27);
-            previewCtx.fillStyle = '#166534';
-            previewCtx.fillRect(x - 22, y - 22, 8, 45);
-            previewCtx.fillRect(x + 14, y - 22, 8, 45);
-        }
-        
-        drawEnemyTank(150, 80);
-        drawEnemyTank(300, 60);
-        drawEnemyTank(450, 90);
-        
-        // Walls
-        previewCtx.fillStyle = '#92400e';
-        previewCtx.fillRect(100, 180, 50, 20);
-        previewCtx.fillRect(250, 200, 50, 20);
-        previewCtx.fillRect(400, 170, 50, 20);
-        
-        // Steel wall
-        previewCtx.fillStyle = '#64748b';
-        previewCtx.fillRect(480, 200, 50, 20);
-        
-        // Barrel
-        previewCtx.fillStyle = '#dc2626';
-        previewCtx.beginPath();
-        previewCtx.arc(550, 210, 15, 0, Math.PI * 2);
-        previewCtx.fill();
-        previewCtx.fillStyle = '#fbbf24';
-        previewCtx.font = 'bold 14px Courier New';
-        previewCtx.fillText('!', 550, 215);
+        // Steel
+        previewCtx.fillStyle = COLORS.STEEL;
+        previewCtx.fillRect(250, 200, 30, 30);
+        previewCtx.fillRect(280, 200, 30, 30);
         
         // Player tank
-        previewCtx.fillStyle = '#4ade80';
-        previewCtx.fillRect(280, 270, 40, 50);
-        previewCtx.fillStyle = '#22c55e';
-        previewCtx.fillRect(295, 245, 10, 30);
-        previewCtx.fillStyle = '#166534';
-        previewCtx.fillRect(273, 270, 10, 50);
-        previewCtx.fillRect(317, 270, 10, 50);
+        drawTank(previewCtx, 270, 300, 40, true, 'up');
         
-        // Bullets
-        previewCtx.fillStyle = '#fbbf24';
-        previewCtx.beginPath();
-        previewCtx.arc(300, 220, 5, 0, Math.PI * 2);
-        previewCtx.fill();
-        previewCtx.beginPath();
-        previewCtx.arc(300, 180, 5, 0, Math.PI * 2);
-        previewCtx.fill();
-        previewCtx.beginPath();
-        previewCtx.arc(300, 140, 5, 0, Math.PI * 2);
-        previewCtx.fill();
+        // Enemy tanks
+        drawTank(previewCtx, 100, 80, 40, false, 'down');
+        drawTank(previewCtx, 450, 100, 40, false, 'down');
+        drawTank(previewCtx, 280, 60, 40, false, 'down');
+        
+        // Base
+        previewCtx.fillStyle = COLORS.PLAYER;
+        previewCtx.fillRect(275, 350, 40, 35);
+        previewCtx.fillStyle = COLORS.ENEMY;
+        previewCtx.fillRect(280, 355, 30, 15);
         
         // Title
-        previewCtx.fillStyle = '#4ade80';
-        previewCtx.font = 'bold 32px Courier New';
+        previewCtx.fillStyle = COLORS.PLAYER;
+        previewCtx.font = 'bold 48px "Courier New"';
         previewCtx.textAlign = 'center';
-        previewCtx.shadowColor = '#4ade80';
-        previewCtx.shadowBlur = 15;
-        previewCtx.fillText('TANK COMMANDER', 300, 40);
-        previewCtx.shadowBlur = 0;
+        previewCtx.shadowColor = COLORS.BRICK;
+        previewCtx.shadowOffsetX = 3;
+        previewCtx.shadowOffsetY = 3;
+        previewCtx.fillText('BASE CITY', 300, 250);
+        previewCtx.shadowColor = 'transparent';
         
-        // Download link
         document.getElementById('previewDownload').href = previewCanvas.toDataURL('image/png');
     </script>
 </body>
 </html>
-

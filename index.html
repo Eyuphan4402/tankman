@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="fc:frame" content="vNext">
     <meta name="base:app_id" content="696698cd6622bd23811761f1">
-    <title>Tank Commander</title>
+    <title>BASE CITY</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,78 +13,32 @@
         <canvas id="gameCanvas"></canvas>
         
         <div id="menu-screen" class="screen">
-            <h1>TANK<br>COMMANDER</h1>
-            <p class="subtitle">Protect Your Base</p>
-            <button id="startBtn">START MISSION</button>
-            <div class="instructions">
-                <p>🎮 Drag to move tank</p>
-                <p>🎯 Auto-fire when stopped</p>
-                <p>🛡️ Defend your base</p>
+            <div class="title-logo">
+                <span class="title-base">BASE</span>
+                <span class="title-city">CITY</span>
             </div>
-        </div>
-        
-        <div id="upgrade-screen" class="screen hidden">
-            <h2>WAVE COMPLETE!</h2>
-            <p class="xp-text">XP: <span id="xpDisplay">0</span></p>
-            <div class="upgrade-options">
-                <button class="upgrade-btn" data-upgrade="bulletSpeed">
-                    <span class="icon">🚀</span>
-                    <span class="name">Bullet Speed</span>
-                    <span class="desc">+25% faster</span>
-                </button>
-                <button class="upgrade-btn" data-upgrade="armor">
-                    <span class="icon">🛡️</span>
-                    <span class="name">Armor</span>
-                    <span class="desc">+1 HP</span>
-                </button>
-                <button class="upgrade-btn" data-upgrade="ricochet">
-                    <span class="icon">💫</span>
-                    <span class="name">Ricochet</span>
-                    <span class="desc">Bullets bounce</span>
-                </button>
-            </div>
+            <div class="tank-icon"></div>
+            <button id="startBtn">START GAME</button>
+            <p class="instructions">Arrow Keys / WASD to Move</p>
         </div>
         
         <div id="gameover-screen" class="screen hidden">
-            <h2>MISSION FAILED</h2>
-            <p>Waves Survived: <span id="finalWave">0</span></p>
-            <p>Total Score: <span id="finalScore">0</span></p>
-            <button id="restartBtn">TRY AGAIN</button>
-        </div>
-        
-        <div id="hud">
-            <div class="hud-left">
-                <span id="waveDisplay">Wave 1</span>
-            </div>
-            <div class="hud-center">
-                <div id="baseHealth">
-                    <span>BASE</span>
-                    <div class="health-bar">
-                        <div id="baseHealthFill"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="hud-right">
-                <span id="scoreDisplay">0</span>
-            </div>
-        </div>
-        
-        <div id="player-health">
-            <span>TANK</span>
-            <div class="health-bar">
-                <div id="playerHealthFill"></div>
-            </div>
+            <h2>GAME OVER</h2>
+            <p>STAGE: <span id="finalWave">1</span></p>
+            <p>SCORE: <span id="finalScore">0</span></p>
+            <button id="restartBtn">PLAY AGAIN</button>
         </div>
         
         <div id="controls">
-            <button id="btnLeft">◀</button>
-            <button id="btnRight">▶</button>
-            <button id="btnUp">▲</button>
-            <button id="btnDown">▼</button>
+            <div class="dpad">
+                <button id="btnUp" class="dpad-btn up">▲</button>
+                <button id="btnLeft" class="dpad-btn left">◀</button>
+                <button id="btnRight" class="dpad-btn right">▶</button>
+                <button id="btnDown" class="dpad-btn down">▼</button>
+            </div>
         </div>
     </div>
     
     <script type="module" src="game.js"></script>
 </body>
 </html>
-
