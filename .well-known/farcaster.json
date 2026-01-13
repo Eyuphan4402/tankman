@@ -1,27 +1,26 @@
 {
   "accountAssociation": {
-    "header": "[FARCASTER'DAN ALINACAK]",
-    "payload": "[FARCASTER'DAN ALINACAK]",
-    "signature": "[FARCASTER'DAN ALINACAK]"
+    "header": "eyJmaWQiOjEwOTA1OTMsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhGNDZDRTNjRjQ3RTY2OEU2MmMwQmQ5MzgyRGE3ZjUyZTk2MDVDNjA5In0",
+    "payload": "eyJkb21haW4iOiJ0YW5rbWFuLnZlcmNlbC5hcHAifQ",
+    "signature": "hKgY5YKJkmTAdP1o1h/aMgRtTRwVNmUmwE4pilcueM9cWFv6opjnf7ushqUKrUC8cU0+ZLyMNSkEW8y0X+TvERs="
   },
   "frame": {
     "version": "1",
     "name": "Tank Commander",
     "subtitle": "Defend Your Base",
-    "description": "Mobil tank savunma oyunu. Parmağını sürükle, tankı hareket ettir, otomatik ateş et ve üssünü düşman dalgalarından koru!",
-    "iconUrl": "https://[DOMAIN]/icon.png",
-    "homeUrl": "https://[DOMAIN]",
-    "imageUrl": "https://[DOMAIN]/preview.png",
-    "splashImageUrl": "https://[DOMAIN]/icon.png",
+    "description": "Klasik tank savunma oyunu. Tankını yönet, düşmanları yok et ve üssünü koru!",
+    "iconUrl": "https://tankman.vercel.app/icon.png",
+    "homeUrl": "https://tankman.vercel.app",
+    "imageUrl": "https://tankman.vercel.app/preview.png",
+    "splashImageUrl": "https://tankman.vercel.app/icon.png",
     "splashBackgroundColor": "#0a0a0a",
     "primaryCategory": "games",
     "tags": ["game", "arcade", "tank", "defense"],
     "tagline": "Touch. Move. Defend!",
-    "heroImageUrl": "https://[DOMAIN]/preview.png",
-    "screenshotUrls": ["https://[DOMAIN]/preview.png"],
-    "ogTitle": "Tank Commander - Farcaster Mini Game",
-    "ogDescription": "Üssünü savun! Mobil dokunmatik tank oyunu.",
-    "ogImageUrl": "https://[DOMAIN]/preview.png"
+    "heroImageUrl": "https://tankman.vercel.app/preview.png",
+    "screenshotUrls": ["https://tankman.vercel.app/preview.png"],
+    "ogTitle": "Tank Commander",
+    "ogDescription": "Klasik tank savunma oyunu!",
+    "ogImageUrl": "https://tankman.vercel.app/preview.png"
   }
 }
-
