@@ -91,7 +91,13 @@ function init() {
             return;
         }
         if (gameState === 'gameover' || gameState === 'victory') {
-            if (e.key === 'Enter' || e.key === ' ') { gameState = 'title'; return; }
+            if (e.key === 'Enter' || e.key === ' ') {
+                document.getElementById('gameover-screen').classList.add('hidden');
+                document.getElementById('menu-screen').classList.remove('hidden');
+                document.getElementById('controls').style.display = 'none';
+                gameState = 'title';
+                return;
+            }
         }
         if (e.key === 'ArrowUp' || e.key === 'w') keys.up = true;
         if (e.key === 'ArrowDown' || e.key === 's') keys.down = true;
@@ -160,7 +166,17 @@ function setupTouchControls() {
     if (startBtn) {
         startBtn.addEventListener('click', () => {
             if (gameState === 'title') startGame();
-            else if (gameState === 'gameover' || gameState === 'victory') gameState = 'title';
+        });
+    }
+    
+    // Restart button
+    const restartBtn = document.getElementById('restartBtn');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', () => {
+            document.getElementById('gameover-screen').classList.add('hidden');
+            document.getElementById('menu-screen').classList.remove('hidden');
+            document.getElementById('controls').style.display = 'none';
+            gameState = 'title';
         });
     }
 }
@@ -472,13 +488,7 @@ function updateEnemies() {
                 enemy.direction = ['up', 'down', 'left', 'right'][Math.floor(Math.random() * 4)];
             }
             
-            // Shoot
-            enemy.shootCooldown--;
-            if (enemy.shootCooldown <= 0) {
-                shoot(enemy.x + TILE_SIZE / 2, enemy.y + TILE_SIZE / 2, enemy.direction, false);
-                enemy.shootCooldown = 90 + Math.random() * 60;
-            }
-        } else {
+            } else {
             // Move towards target
             const dx = enemy.targetX - enemy.x;
             const dy = enemy.targetY - enemy.y;
@@ -487,11 +497,18 @@ function updateEnemies() {
                 enemy.x += Math.sign(dx) * enemy.speed;
             } else if (Math.abs(dy) > enemy.speed) {
                 enemy.y += Math.sign(dy) * enemy.speed;
-            } else {
-                enemy.x = enemy.targetX;
-                enemy.y = enemy.targetY;
-                enemy.moving = false;
-            }
+} else {
+            enemy.x = enemy.targetX;
+            enemy.y = enemy.targetY;
+            enemy.moving = false;
+        }
+        }
+        
+        // Enemy shooting (always check, not just when stopped)
+        enemy.shootCooldown--;
+        if (enemy.shootCooldown <= 0) {
+            shoot(enemy.x + TILE_SIZE / 2, enemy.y + TILE_SIZE / 2, enemy.direction, false);
+            enemy.shootCooldown = 60 + Math.random() * 90;
         }
     }
 }
