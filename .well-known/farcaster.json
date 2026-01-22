@@ -17,7 +17,7 @@
     "primaryCategory": "games",
     "tags": ["game", "arcade", "tank", "retro"],
     "webhookUrl": "",
-    "noIndex": true,
+    "noIndex": false,
     "tagline": "Defend Your Base!",
     "heroImageUrl": "https://basecity.vercel.app/preview.png",
     "screenshotUrls": ["https://basecity.vercel.app/preview.png"],
