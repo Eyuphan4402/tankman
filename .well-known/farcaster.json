@@ -7,20 +7,22 @@
   "frame": {
     "version": "1",
     "name": "BASE CITY",
-    "subtitle": "Battle City Clone",
+    "subtitle": "NES-style arcade game",
     "description": "Classic tank battle game! Defend your base from enemy tanks in this NES-style arcade game.",
-    "iconUrl": "https://tankman.vercel.app/icon.png",
-    "homeUrl": "https://tankman.vercel.app",
-    "imageUrl": "https://tankman.vercel.app/preview.png",
-    "splashImageUrl": "https://tankman.vercel.app/icon.png",
+    "iconUrl": "https://basecity.vercel.app/icon.png",
+    "homeUrl": "https://basecity.vercel.app",
+    "imageUrl": "https://basecity.vercel.app/preview.png",
+    "splashImageUrl": "https://basecity.vercel.app/icon.png",
     "splashBackgroundColor": "#000000",
     "primaryCategory": "games",
     "tags": ["game", "arcade", "tank", "retro"],
+    "webhookUrl": "",
+    "noIndex": true,
     "tagline": "Defend Your Base!",
-    "heroImageUrl": "https://tankman.vercel.app/preview.png",
-    "screenshotUrls": ["https://tankman.vercel.app/preview.png"],
+    "heroImageUrl": "https://basecity.vercel.app/preview.png",
+    "screenshotUrls": ["https://basecity.vercel.app/preview.png"],
     "ogTitle": "BASE CITY",
     "ogDescription": "Classic tank battle game!",
-    "ogImageUrl": "https://tankman.vercel.app/preview.png"
+    "ogImageUrl": "https://basecity.vercel.app/preview.png"
   }
 }
